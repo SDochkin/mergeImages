@@ -1,3 +1,4 @@
+const fetch = require('node-fetch');
 const {params, simpleSizes} = require("./constants");
 
 const getImagePosition = (info) => info.width > info.height
@@ -35,6 +36,11 @@ const getResizeDirection = (isHorizontal, {width, height}) => {
     return isHorizontal ? hMockupRatio > imageRatio : vMockupRatio > imageRatio;
 }
 
+const downloadImageByUrl = async (url) => {
+    const response = await fetch(url);
+    return response.buffer();
+}
+
 module.exports = {
     getImagePosition,
     getMockupOrientation,
@@ -43,5 +49,6 @@ module.exports = {
     isImageHorizontal,
     calculatePadding,
     getExtractParams,
-    getResizeDirection
+    getResizeDirection,
+    downloadImageByUrl
 }
